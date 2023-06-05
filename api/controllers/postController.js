@@ -160,3 +160,21 @@ exports.addLike = async(req,res,next) =>{
         next(error);
     }
 }
+
+//Add Unlike Feature
+exports.removeLike = async(req,res,next) =>{
+    try{
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            $pull: {likes: req.user._id}
+        })
+        res.status(200).json({
+            success:true,
+            post
+        },
+        {new:true}
+        )
+
+    }catch(err){
+        next(error);
+    }
+}
