@@ -125,3 +125,21 @@ exports.updatePost = async(req,res,next) =>{
 
 
 //add Comment
+exports.addComment = async(req,res,next) =>{
+    const {comment} = req.body;
+    try{
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            $push: {comments:{text: comment, postedBy: req.user._id}}
+        },
+        {new:true}
+        )
+        res.status(200).json({
+            success:true,
+            post
+        })
+        
+    }catch(error){
+        next(error);
+    }
+}
+
