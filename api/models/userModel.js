@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
+const timestamps = require('mongoose-timestamp')
 
 
+// const schemaOptions = {
+//     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+//   };
 const userSchema = new mongoose.Schema({
 
     name:{
@@ -30,12 +34,15 @@ const userSchema = new mongoose.Schema({
     role:{
         type:String,
         enum:['admin','user'],
-        default:user
+        default: 'user'
 
     },
-    timestamps: true
+    
+    // schemaOptions
 
-})
+}
+)
+userSchema.set('timestamps', true); 
 
 
 //encrypting password before Saving
