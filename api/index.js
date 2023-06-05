@@ -19,15 +19,17 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(cors());
 
-
+//errorhandler middleware
+app.use(errorHandler);
 
 //import routes
 
 const authRoutes = require("./routes/authRoutes")
+const postRoutes = require("./routes/postRoute")
 
 //Routes Middleware
 app.use("/api",authRoutes );
-
+app.use("/api", postRoutes)
 //Databse connectivity
 
 mongoose.set('strictQuery', false);
