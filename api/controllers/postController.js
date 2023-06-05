@@ -142,4 +142,21 @@ exports.addComment = async(req,res,next) =>{
         next(error);
     }
 }
+// Like Feature
 
+exports.addLike = async(req,res,next) =>{
+    try{
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            $addToSet: {likes: req.user._id}
+        })
+        res.status(200).json({
+            success:true,
+            post
+        },
+        {new:true}
+        )
+
+    }catch(err){
+        next(error);
+    }
+}
